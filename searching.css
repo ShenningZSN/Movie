@@ -1,10 +1,17 @@
-#searchBar {
-	width: 75%;
-	margin: 0 auto;
-	margin-top: 20px;
+h1.main-title {
+	margin: 20px 0px;
 }
 
-div > img {
+#searchBar {
+	width: 75%;
+	margin: 20px auto;
+}
+
+div.movie-block {
+	margin: 20px 20px;
+}
+
+img.movie-poster {
 	width: 200px;
 	height: 300px;
 	margin: 0px 20px;
