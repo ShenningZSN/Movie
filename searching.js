@@ -26,16 +26,35 @@ function findMovieByKeyword(keyword, page) {
 			for (let i = 0; i < result["results"].length; i++) {
 				var movieImage = "https://image.tmdb.org/t/p/w500/" + result["results"][i]["poster_path"];
 				var movieTitle = result["results"][i]["title"];
+				var movieDescription = result["results"][i]["overview"];
 				
-				resultHTML.append(
-				"<div class=\"movie\">" + 
-					"<p>" + movieTitle + "</p>" + 
-				    "<img src=\"" + movieImage + "\" >" + 
-				"</div>");
+
+				let block = document.createElement("div");
+				block.className = "clearfix";
+			
+				let poster = document.createElement("img");
+				poster.className = "float-left";
+				poster.setAttribute("src", movieImage);
+
+				let title = document.createElement("h3");
+				title.className = "movie-title";
+				title.innerHTML = movieTitle;
+
+				let description = document.createElement("p");
+				description.className = "movie-description";
+				description.innerHTML = movieDescription;
+
+
+				block.appendChild(poster);
+				block.appendChild(title);
+				block.appendChild(description);
+
+
+				resultHTML.append(block);
 			}
 			
 		},
-		error: function (xhr, status, error) {
+		error: function (error, status, xhr) {
 			$("#message").html("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
 		}
 	});

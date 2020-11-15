@@ -3,3 +3,9 @@
 	margin: 0 auto;
 	margin-top: 20px;
 }
+
+div > img {
+	width: 200px;
+	height: 300px;
+	margin: 0px 20px;
+}
