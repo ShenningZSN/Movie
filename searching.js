@@ -24,7 +24,7 @@ function findMovieByKeyword(keyword, page) {
 		dataType: "json",
 		success: function (result, status, xhr) {
 			
-			var resultHTML = $("#searchResult");
+			var resultHTML = $("#search-result");
 			resultHTML.empty();
 
 			for (let i = 0; i < result["results"].length; i++) {
