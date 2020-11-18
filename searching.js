@@ -3,8 +3,8 @@ $(document).ready(
 );
 
 function search() {
-	$("#searchButton").click(function () {
-		var keyword_input = document.getElementById("target").value;
+	$("#searchButton").on("click", function () {
+		var keyword_input = $("#target").val()
 		if (keyword_input == "" || keyword_input == null) {
 			alert("Please enter a valid keyword!");
 			return;
@@ -13,14 +13,31 @@ function search() {
     });
 }
 
+
+const MOVIE_SEARCH_URL = "https://api.themoviedb.org/3/search/movie?";
+const MOVIE_IMAGE_URL = "https://image.tmdb.org/t/p/w500/";
+const API_KEY = "21c2f2edc4b87ed7ca1bab78ecee5012";
+
+
+var block_template = `
+<div class='movie-block clearfix'>
+	<img class="movie-poster float-left" src="test_image.img">
+	<h3 class="movie-title"> Movie Title </h3> 
+	<p class="movie-description"> Movie Description </p>
+</div>
+`;
+
+
+
 function findMovieByKeyword(keyword, page) {
 
 	$.ajax({
-		url: "https://api.themoviedb.org/3/search/movie?language=en-US&" + 
-			 "query=" + keyword + 
+		url: MOVIE_SEARCH_URL + 
+			 "language=" + "en-US" +
+			 "&query=" + keyword + 
 			 "&page=" + page + 
 			 "&include_adult=" + "false",
-		data: { "api_key": "21c2f2edc4b87ed7ca1bab78ecee5012" },
+		data: { "api_key":  API_KEY},
 		dataType: "json",
 		success: function (result, status, xhr) {
 			
@@ -28,14 +45,17 @@ function findMovieByKeyword(keyword, page) {
 			resultHTML.empty();
 
 			for (let i = 0; i < result["results"].length; i++) {
-				console.log(result["results"][i]);
+				// console.log(result["results"][i]);
 				var movieImage = result["results"][i]["poster_path"] === null ? 
-								"failed-Image.png" : 
-								"https://image.tmdb.org/t/p/w500/" + 
+								 "failed-Image.png" : 
+								 MOVIE_IMAGE_URL + 
 				                 result["results"][i]["poster_path"];
 				
 				var movieTitle = result["results"][i]["title"];
 				var movieDescription = result["results"][i]["overview"];
+
+				// template_poster = movieImage;
+				// resultHTML.append(block_template);
 				
 
 				let block = document.createElement("div");
