@@ -18,17 +18,6 @@ const MOVIE_SEARCH_URL = "https://api.themoviedb.org/3/search/movie?";
 const MOVIE_IMAGE_URL = "https://image.tmdb.org/t/p/w500/";
 const API_KEY = "21c2f2edc4b87ed7ca1bab78ecee5012";
 
-
-var block_template = `
-<div class='movie-block clearfix'>
-	<img class="movie-poster float-left" src="test_image.img">
-	<h3 class="movie-title"> Movie Title </h3> 
-	<p class="movie-description"> Movie Description </p>
-</div>
-`;
-
-
-
 function findMovieByKeyword(keyword, page) {
 
 	$.ajax({
@@ -37,6 +26,7 @@ function findMovieByKeyword(keyword, page) {
 			 "&query=" + keyword + 
 			 "&page=" + page + 
 			 "&include_adult=" + "false",
+		type: "GET", 
 		data: { "api_key":  API_KEY},
 		dataType: "json",
 		success: function (result, status, xhr) {
@@ -54,32 +44,41 @@ function findMovieByKeyword(keyword, page) {
 				var movieTitle = result["results"][i]["title"];
 				var movieDescription = result["results"][i]["overview"];
 
+				var block = `
+				<div class='movie-block clearfix'>
+					<img class="movie-poster float-left" src=${movieImage}>
+					<h3 class="movie-title"> ${movieTitle} </h3> 
+					<p class="movie-description"> ${movieDescription} </p>
+				</div>`;
+				
+				resultHTML.append(block);
+
 				// template_poster = movieImage;
 				// resultHTML.append(block_template);
 				
 
-				let block = document.createElement("div");
-				block.className = "movie-block clearfix";
+				// let block = document.createElement("div");
+				// block.className = "movie-block clearfix";
 			
-				let poster = document.createElement("img");
-				poster.className = "movie-poster float-left";
-				poster.setAttribute("src", movieImage);
+				// let poster = document.createElement("img");
+				// poster.className = "movie-poster float-left";
+				// poster.setAttribute("src", movieImage);
 
-				let title = document.createElement("h3");
-				title.className = "movie-title";
-				title.innerHTML = movieTitle;
+				// let title = document.createElement("h3");
+				// title.className = "movie-title";
+				// title.innerHTML = movieTitle;
 
-				let description = document.createElement("p");
-				description.className = "movie-description";
-				description.innerHTML = movieDescription;
-
-
-				block.appendChild(poster);
-				block.appendChild(title);
-				block.appendChild(description);
+				// let description = document.createElement("p");
+				// description.className = "movie-description";
+				// description.innerHTML = movieDescription;
 
 
-				resultHTML.append(block);
+				// block.appendChild(poster);
+				// block.appendChild(title);
+				// block.appendChild(description);
+
+
+				// resultHTML.append(block);
 			}
 			
 		},
