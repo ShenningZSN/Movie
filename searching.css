@@ -2,6 +2,14 @@ h1.main-title {
 	margin: 20px 0px;
 }
 
+button.movie-delete-button {
+	float: right;
+}
+
+h3.movie-title {
+	display: inline;
+}
+
 #searchBar {
 	width: 75%;
 	margin: 20px auto;
